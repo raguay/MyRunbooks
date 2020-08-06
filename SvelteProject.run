@@ -1,0 +1,82 @@
+## Svelte Project
+
+[Svelte](https://svelte.dev/) is a great way to create JavaScript web applications. It is my favorite framework and works really well. I've used many others, but this produces the smallest size code.
+
+This Runbook will help create a new project directory and launch services for developing your web application.
+
+## The directory for creating Svelte projects:
+
+:[projdir: Project Directory Path]{"~/.myfig/.svelteprojdir" fread}
+
+## Name of your project:
+
+:[svelteproj: Name of the Svelte project]{"~/.myfig/.currentSvelteProject" fread}
+
+### Go to the project directory
+
+Running this code will save the changes in the above inputs for next time and move your terminal to the project directory.
+
+```zsh
+#
+# Save the project directory for next time.
+#
+echo -n '{{projdir}}' > ~/.myfig/.svelteprojdir
+echo -n '{{svelteproj}}' > ~/.myfig/.currentSvelteProject
+
+#
+# Goto the project directory.
+#
+cd '{{projdir}}';
+```
+
+### Create the new Svelte project.
+
+This will create the new Svelte project and populate it with the needed libraries.
+
+```
+cd '{{projdir}}'
+npx degit sveltejs/template {{svelteproj}}
+cd {{svelteproj}}
+npm install
+```
+
+### Edit the Svelte Project
+
+This will open the Svelte project using the editor setup in the `$EDITOR` environment variable.
+
+```
+$EDITOR '{{projdir}}/{{svelteproj}}'
+```
+
+### Run the development server and open the web page
+
+This will run the development server and open it in a web browser. It will use your system's default web browser.
+
+```
+cd '{{projdir}}/{{svelteproj}}'
+npm run dev 
+```
+
+In a different termial window, run this command:
+
+```
+open http://localhost:5000
+```
+
+### Update Git and GitHub
+
+If your project directory is a git repository tied to a GitHub account, this will commit all changes and upload to the GitHub account.
+
+Write your git commit comment below:
+
+$[comment: Git Commit Comment]{ }
+
+```
+cd '{{projdir}}/{{svelteproj}}'
+git add *
+git commit -am '{{comment}}'
+git push
+```
+  
+  
++[exit: Exit ]{ close }
