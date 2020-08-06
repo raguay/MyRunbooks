@@ -1,0 +1,68 @@
+# Creating Runbooks
+
+This Runbook is for showing you the steps for creating your own Runbooks for fig. It is also an IDE environment for editing and creating your Runbooks. First, we need to setup parameters that will be loaded each time this Runbook is ran to save your place in the editing process.
+
+## The directory for creating Runbooks:
+
+:[projdir: Project Directory Path]{"~/.myfig/.projdir" fread}
+
+## Name of your runbook:
+
+:[runbook: Name of Runbook]{"~/.myfig/.currentRunbook" fread}
+
+### Go to the project directory
+
+Running this code will save the changes in the above inputs for next time and move your terminal to the project directory.
+
+```
+#
+# Save the project directory for next time.
+#
+echo -n '{{projdir}}' > ~/.myfig/.projdir
+echo -n '{{runbook}}' > ~/.myfig/.currentRunbook
+
+#
+# Goto the project directory.
+#
+cd '{{projdir}}'
+```
+
+### Create the new Runbook and link it to the run directory.
+
+This will create the new Runbook using the touch command and link it into the main Runbook directory that fig setup.
+
+```
+touch '{{projdir}}/{{runbook}}.run'
+ln -s '{{projdir}}/{{runbook}}.run' ~/run/{{runbook}}.run
+```
+
+### Edit the Runbook
+
+This will open the Runbook in the editor setup in the `$EDITOR` environment variable.
+
+```
+$EDITOR '{{projdir}}/{{runbook}}.run'
+```
+
+### Run the Runbook
+
+This will run the Runbook you are creating. Each time you edit a Runbook, you will need to re-run it to get the changes into the current session.
+
+```
+fig {{runbook}}
+```
+
+### Update Git and GitHub
+
+If your project directory is a git repository tied to a GitHub account, this will commit all changes and upload to the GitHub account.
+
+```
+cd '{{projdir}}'
+git add {{runbook}}.run
+git commit -am 'updating {{runbook}} Runbook'
+git push
+```
+  
+  
++[exit: Exit ]{ close }
+
