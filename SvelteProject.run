@@ -40,6 +40,17 @@ cd {{svelteproj}}
 npm install
 ```
 
+### Link to Fig Run Path
+
+If this Svelte project is to be a fig app, then use this the link it into the FIGPATH area. This should only be ran once on the project.
+
+This will create a link to the `~/run` directory and place the `index.html` file at the root.
+
+```
+ln -s '{{projdir}}/{{svelteproj}}' ~/run/{{svelteproj}}.app
+cp '{{projdir}}/{{svelteproj}}/public/index.html' '{{projdir}}/{{svelteproj}}/'
+```
+
 ### Edit the Svelte Project
 
 This will open the Svelte project using the editor setup in the `$EDITOR` environment variable.
@@ -61,6 +72,14 @@ In a different termial window, run this command:
 
 ```
 open http://localhost:5000
+```
+
+### Run as Fig App
+
+This will run the project as a fig application.
+
+```
+fig local '{{projdir}}/{{svelteproj}}/index.html'
 ```
 
 ### Update Git and GitHub
