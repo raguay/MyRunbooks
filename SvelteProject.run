@@ -74,6 +74,18 @@ In a different termial window, run this command:
 open http://localhost:5000
 ```
 
+### Create a Svelte Fig App from Template
+
+I created a template for making Fig Applications using Svelte and MDSvex. 
+
+```
+mkdir '{{projdir}}/{{svelteproj}}'
+npx degit raguay/SvelteFigAppTemplate '{{projdir}}/{{svelteproj}}'
+cd '{{projdir}}/{{svelteproj}}'
+npm install
+npm run dev
+```
+
 ### Run as Fig App
 
 This will run the project as a fig application.
