@@ -1,0 +1,68 @@
+## AWS Commands
+
+This contains commands I use the most with AWS. These commands are using [aws-vault](https://github.com/99designs/aws-vault) and [aws](https://aws.amazon.com/cli/) command line tools. It is assumed you have these tools on your system and configured.
+
+First, we need the basic information for getting started: your user name and the `s3://` base directory for your work. The base directory has to start with `s3://` and end with `/`. Both of these will be saved between executions.
+
+User Name:
+:[*awsname: Name of AWS User]{}
+Base Directory:
+:[*awsbasedir: Base directory in AWS]{}
+
+### List Base Directory
+
+This will list what is in the base directory or a subdirectory if one is given.  You have to have the ending `/` for it to list properly.
+
+Sub-directory:
+:[listsubdir: Sub-directory to list]{}
+
+```
+aws-vault exec {{awsname}} -- aws s3 ls {{awsbasedir}}{{listsubdir}}
+```
+
+### Download Files
+
+This will download all the files in a given subdirectory from the base directory.  
+
+Directory to Download:
+:[downloaddir: Directory to download]{}
+
+```
+aws-vault exec {{awsname}} -- aws s3 cp --recursive {{awsbasedir}}{{downloaddir}} .
+```
+
+### Search Directory
+
+This will list what is in the base directory. To search the base directory, just leave the `Diretory to Search` blank.
+
+Search Term:
+:[searchterm: Search Term]{}
+
+Directory to Search:
+:[searchdir: Directory to Search]{}
+
+```
+aws-vault exec {{awsname}} -- aws s3 ls {{awsbasedir}}{{searchdir}} | grep '{{searchterm}}'
+```
+
+### Upload Files
+
+This will upload all the files in a given subdirectory to the base directory with the given subdirectory. If you give an extension, it will upload every file in the current directory with that extension. Just give the extension without the period. 
+
+Directory to Upload:
+:[uploaddir: Directory to Upload]{}
+
+Extension to Upload:
+:[extupload: Extension of files to upload]{}
+
+```
+aws-vault exec {{awsname}} -- aws s3 cp ./ {{awsbasedir}}{{uploaddir}} --recursive --exclude '*' --include '*.{{extupload}}' 
+```
+
+### Upload YouTube Files
+
+This will upload all the video files in the current directory to the YouTube directory with the given subdirectory. If you give an extension, it will upload every file in the current directory with that extension. Just give the extension without the period. 
+
+```
+aws-vault exec {{awsname}} -- aws s3 cp ./ {{awsbasedir}}YouTubeVideoArchive/ --recursive --exclude '*' --include '*.mp4' 
+```
